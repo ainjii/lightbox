@@ -1,0 +1,21 @@
+.center {
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#cursor {
+    display: inline-block;
+}
+
+#search-prompt {
+    background-color: #000000;
+    height: 2px;
+    opacity: 0;
+}
+
+#sentient {
+    display: inline-block;
+}

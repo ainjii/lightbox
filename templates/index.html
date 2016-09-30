@@ -8,9 +8,22 @@
     <meta name='name' content="Angie Roscioli's Lightbox">
     <meta name='author' content='ainjii'>
     <meta name='description' content='A sample lightbox application written entirely in Javascript. This lightbox makes no use of third party libraries, including jQuery. Completed by Angie Roscioli.'>
+
     <link rel='icon' href='https://raw.githubusercontent.com/ainjii/lightbox/master/favicon.ico' />
+    <link rel='stylesheet' href='/static/css/styles.css' />
 </head>
 <body>
-    Hello!
+    <div>
+        <div id='sentient'></div>
+        <div id='cursor'><b>|</b></div>
+    </div>
+    <div id='active-search'>
+        <div id='search-prompt'></div>
+        <div id='search-input'></div>
+    </div>
+
+    <script src='static/js/animate.js'></script>
+    <script src='/static/js/searchPrompt.js'></script>
+    <script src='/static/js/sentient.js'></script>
 </body>
 </html>

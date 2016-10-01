@@ -1,12 +1,20 @@
+var intervalLength = 10;
+var cursor = document.getElementById('cursor');
+
 function flashCursor() {
     setInterval(function() {
-        var cursor = document.getElementById('cursor');
-        fadeOut(cursor, 700);
+
+        if (cursor.style.opacity <= 0) {
+            fadeIn(cursor, 1000);
+        } else {
+            fadeOut(cursor, 1000);
+        }
+
     }, 1500);
 }
 
 function fadeIn(elem, ms) {
-    var deltaPerFrame = 1 / ms;
+    var deltaPerFrame = intervalLength / ms;
     elem.style.opacity = 0;
 
     var interval = setInterval(function() {
@@ -15,11 +23,11 @@ function fadeIn(elem, ms) {
         if (elem.style.opacity >= 1) {
             clearInterval(interval);
         }
-    }, 15);
+    }, intervalLength);
 }
 
 function fadeOut(elem, ms) {
-    var deltaPerFrame = 1 / ms;
+    var deltaPerFrame = intervalLength / ms;
     elem.style.opacity = 1;
 
     var interval = setInterval(function() {
@@ -28,7 +36,7 @@ function fadeOut(elem, ms) {
         if (elem.style.opacity <= 0) {
             clearInterval(interval);
         }
-    }, 15);
+    }, intervalLength);
 }
 
 flashCursor();

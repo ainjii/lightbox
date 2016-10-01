@@ -26,10 +26,17 @@ function sentientSpeak(message, callback) {
 
 function sentientReset() {
     setTimeout(function() {
-        fadeOut(sentient, 1);
         sentient.innerHTML = '';
-        fadeIn(sentient, 1);
+        queryUser();
     }, 2000);
 };
 
-sentientSpeak("Hello.", sentientReset);
+function greetUser() {
+    sentientSpeak("Hello.", sentientReset);
+}
+
+function queryUser() {
+    sentientSpeak("What images are you looking for today?", showSearchPrompt);
+}
+
+greetUser();

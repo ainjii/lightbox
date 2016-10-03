@@ -30,37 +30,38 @@ function ajax(url, callback, err) {
 
 
 // Interactivity
-function checkProfanity(data, query) {
+function checkProfanity(data) {
     var profaneWords = JSON.parse(data);
 
-    if (profaneWords.indexOf(query) >= 0) {
+    if (profaneWords.indexOf(currentQuery) >= 0) {
          chideUser();
      } else {
         fadeOut(sentient, 1000);
-        fadeOut(searchContainer, 1000);
-        fetchImages(query);
+        fadeOut(input, 1000);
+        fadeOut(prompt, 1000);
+        fetchImages();
      }
 }
 
-function submitQuery(query) {
+function submitQuery() {
     var url = 'https://gist.githubusercontent.com/ainjii/de6c9a0f6529080216e01a6e62226a8a/raw/3a790a6f16ea08677d33c5de04fb22a69b1050f8/profane.json';
 
     ajax(url, function(data) {
-        checkProfanity(data, query);
+        checkProfanity(data);
     }, displayError);
 }
 
-function fetchImages(query) {
+function fetchImages() {
     if (!numResults || startIndex <= numResults) {
-        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&startIndex=';
-        var url = queryBase + startIndex + '&q=' + query;
+        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&start=';
+        var url = queryBase + startIndex + '&q=' + currentQuery;
         ajax(url, processQueryResults, displayError);
     }
 }
 
 function registerKey(evt) {
     var key = evt.key;
-    var currentQuery = input.innerHTML;
+    currentQuery = input.innerHTML;
 
     if (key == 'Enter') {
         evt.preventDefault();

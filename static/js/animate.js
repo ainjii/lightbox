@@ -68,6 +68,8 @@ function updateSizes() {
     var newWidth = parseInt(window.innerWidth *.67) + 'px';
 
     set(searchContainer, 'width', newWidth);
+    set(input, 'width', newWidth);
+    set(prompt, 'width', newWidth);
     set(sentient, 'width', newWidth);
     set(grid, 'width', newWidth);
 }

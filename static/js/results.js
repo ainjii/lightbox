@@ -113,7 +113,18 @@ function displayResults(response) {
 function newQuery() {
     fadeOut(results, 1000);
     clear(grid);
-    fadeIn(sentient, 1000);
+
+    currentQuery = '';
+    thumbnails = [];
+    startIndex = 1;
+    numResults = null;
+
     updateSizes();
+
+    fadeIn(sentient, 1000);
+    fadeIn(input, 1000);
+    fadeIn(prompt, 1000);
+
+    input.blur();
     queryUser();
 }

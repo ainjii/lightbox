@@ -1,17 +1,19 @@
-var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyB1vzRQkLE3IfC5L7NAHj0PNYDzDt6aKZQ&cx=011012745277674285058:c5dts1gynry&searchType=image&count=20&alt=json&startIndex=';
 var startIndex = 1;
-
+var maxResults = null;
+var input = document.getElementById('search-input');
+var searchContainer = document.getElementById('search-container');
 
 // API Request
-function handleError(data) {
+function displayError(data) {
     console.log(data);
 }
 
-function handleQueryResults(data) {
-    console.log(data);
-    updateStartIndex(data.queries);
-    parseThumbnailsAndLinks();
-    createImageTiles();
+function processQueryResults(data) {
+    var response = JSON.parse(data);
+
+    startIndex += 10;
+    maxResults = response.queries.request.totalResults;
+    displayResults(response);
 }
 
 function ajax(url, callback, err) {
@@ -33,55 +35,70 @@ function ajax(url, callback, err) {
 
 
 // Interactivity
-function submitQuery(query) {
-    var url = queryBase + startIndex + '&q=' + query;
-    ajax(url, handleQueryResults, handleError);
+function checkProfanity(data, query) {
+    // console.log(data);
+
+    // if (data == 'true') {
+        // chideUser();
+    // } else {
+        fetchImages(query);
+    // }
 }
 
-function isAlphaNumeric(key) {
-    return /^[a-zA-Z0-9 ]$/.test(key);
+function submitQuery(query) {
+    var profanityBase = 'http://www.purgomalum.com/service/xml?text=';
+    var url = profanityBase + query;
+
+    // ajax(url, function(data) {
+        checkProfanity(null, query);
+    // }, displayError);
+}
+
+function fetchImages(query) {
+    if (!maxResults || startIndex <= maxResults) {
+        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyB1vzRQkLE3IfC5L7NAHj0PNYDzDt6aKZQ&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&startIndex=';
+        var url = queryBase + startIndex + '&q=' + query;
+        ajax(url, processQueryResults, displayError);
+    }
 }
 
 function registerKey(evt) {
     var key = evt.key;
-    var input = document.getElementById('search-input');
+    var currentQuery = input.innerHTML;
 
-    if (key == 'Backspace'){
-        input.innerHTML = input.innerHTML.slice(0, -1);
-    } else if (key == 'Enter'){
-        submitQuery(input.innerHTML);
+    if (key == 'Enter') {
+        evt.preventDefault();
+
         input.innerHTML = '';
-    } else if (isAlphaNumeric(key)) {
-        input.innerHTML += key;
+        fadeOut(sentient, 1000);
+        fadeOut(searchContainer, 1000);
+
+        submitQuery(currentQuery);
     }
 }
 
-
-// Search prompt visibility + responsiveness
-function getSearchPrompt() {
-    return document.getElementById('search-prompt');
+function updateSearchContainerWidth() {
+    var newWidth = (window.innerWidth *.67) + 'px';
+    searchContainer.style.width = newWidth;
+    sentient.style.width = newWidth;
 }
 
-function updateSearchPromptWidth() {
-    var prompt = getSearchPrompt();
-
-    var newWidth = window.innerWidth *.67;
-    prompt.style.width = newWidth + 'px';
-    sentient.style.width = newWidth + 'px';
-}
-
-function showSearchPrompt() {
-    var searchContainer = document.getElementById('search-container');
-    var prompt = getSearchPrompt();
+function removeSentientCursor() {
     var cursor = document.getElementById('cursor');
 
-    cursor.className += 'search-input';
-    searchContainer.insertBefore(cursor, prompt);
+    clearInterval(blinkID);
+    hide(cursor);
+}
 
-    updateSearchPromptWidth();
-    fadeIn(prompt, 1000);
+function showSearchContainer() {
+    removeSentientCursor();
+    updateSearchContainerWidth();
+
+    fadeIn(searchContainer, 1000);
+
+    input.focus();
 
     window.addEventListener('keydown', registerKey);
 }
 
-window.addEventListener('resize', updateSearchPromptWidth);
+window.addEventListener('resize', updateSearchContainerWidth);

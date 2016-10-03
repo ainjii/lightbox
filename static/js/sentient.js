@@ -24,19 +24,26 @@ function sentientSpeak(message, callback) {
     }
 }
 
-function sentientReset() {
+function sentientReset(callback) {
     setTimeout(function() {
         sentient.innerHTML = '';
-        queryUser();
+        callback();
     }, 2000);
 };
 
 function greetUser() {
-    sentientSpeak("Hello.", sentientReset);
+    sentientSpeak("Hello.", function() {
+        sentientReset(queryUser);
+    });
 }
 
 function queryUser() {
-    sentientSpeak("What images are you looking for today?", showSearchPrompt);
+    sentientSpeak("What images?", showSearchContainer);
 }
 
-greetUser();
+function chideUser() {
+    sentientSpeak("Don't make me blush.", showSearchContainer);
+}
+
+//greetUser();
+queryUser();

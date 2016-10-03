@@ -15,7 +15,7 @@
     <link rel='stylesheet' href='/static/css/styles.css' />
 </head>
 <body>
-    <div class='absolute-center'>
+    <div class='prompt absolute-center'>
         <div>
             <div id='sentient' class='h-center'></div>
             <div id='cursor'>|</div>
@@ -24,13 +24,24 @@
         <br>
 
         <div id='search-container'>
-            <div id='search-input' class='search-input'></div>
+            <div id='search-input' contenteditable="true"></div>
             <div id='search-prompt'></div>
         </div>
     </div>
 
-    <script src='static/js/animate.js'></script>
+    <div id='results'>
+        <div id='grid' class='h-center'></div>
+    </div>
+
+    <div id='lightbox'>
+        <div id='highlight' class='absolute-center'></div>
+        <div id='close-highlight'>X</div>
+    </div>
+
+    <script src='/static/js/init.js'></script>
+    <script src='/static/js/animate.js'></script>
     <script src='/static/js/search.js'></script>
     <script src='/static/js/sentient.js'></script>
+    <script src='/static/js/results.js'></script>
 </body>
 </html>

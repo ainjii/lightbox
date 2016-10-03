@@ -1,8 +1,17 @@
 var intervalLength = 10;
-var cursor = document.getElementById('cursor');
+
+function hide(elem) {
+    elem.style.opacity = 0;
+}
+
+function show(elem) {
+    elem.style.opacity = 1;
+}
 
 function flashCursor() {
-    setInterval(function() {
+    var cursor = document.getElementById('cursor');
+
+    return setInterval(function() {
 
         if (cursor.style.opacity <= 0) {
             fadeIn(cursor, 1000);
@@ -15,7 +24,7 @@ function flashCursor() {
 
 function fadeIn(elem, ms) {
     var deltaPerFrame = intervalLength / ms;
-    elem.style.opacity = 0;
+    hide(elem);
 
     var interval = setInterval(function() {
         elem.style.opacity = parseFloat(elem.style.opacity) + deltaPerFrame;
@@ -28,7 +37,7 @@ function fadeIn(elem, ms) {
 
 function fadeOut(elem, ms) {
     var deltaPerFrame = intervalLength / ms;
-    elem.style.opacity = 1;
+    show(elem);
 
     var interval = setInterval(function() {
         elem.style.opacity = parseFloat(elem.style.opacity) - deltaPerFrame;
@@ -39,4 +48,4 @@ function fadeOut(elem, ms) {
     }, intervalLength);
 }
 
-flashCursor();
+var blinkID = flashCursor();

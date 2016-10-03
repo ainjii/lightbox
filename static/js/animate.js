@@ -1,5 +1,9 @@
 var intervalLength = 10;
 
+function clear(elem) {
+    elem.innerHTML = '';
+}
+
 function hide(elem) {
     elem.style.opacity = 0;
 }
@@ -25,6 +29,7 @@ function flashCursor() {
 function fadeIn(elem, ms) {
     var deltaPerFrame = intervalLength / ms;
     hide(elem);
+    elem.style.display = 'initial';
 
     var interval = setInterval(function() {
         elem.style.opacity = parseFloat(elem.style.opacity) + deltaPerFrame;
@@ -44,6 +49,7 @@ function fadeOut(elem, ms) {
 
         if (elem.style.opacity <= 0) {
             clearInterval(interval);
+            elem.style.display = 'none';
         }
     }, intervalLength);
 }

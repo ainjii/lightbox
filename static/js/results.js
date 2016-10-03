@@ -1,31 +1,39 @@
 var grid = document.getElementById('grid');
 var lightbox = document.getElementById('lightbox');
 var highlight = document.getElementById('highlight');
+var results = document.getElementById('results');
 var thumbnails = [];
-highlight.addEventListener('click', deactivateLightbox);
+lightbox.addEventListener('click', deactivateLightbox);
 window.addEventListener('keydown', navigateLightbox);
-document.getElementById('close-highlight').addEventListener('keypress', deactivateLightbox);
+document.getElementById('close-highlight').addEventListener('click', deactivateLightbox);
 var currentImageIndex = 0;
+var closeResults = document.getElementById('close-results');
+closeResults.addEventListener('click', newQuery);
 
 function navigateLightbox(evt) {
     var key = evt.key.toLowerCase();
-    console.log(key);
 
     if (key == 'arrowleft') {
         if (currentImageIndex > 0) {
-            currentImageIndex ++;
-            highlightImage(currentImageIndex);
+            highlightImage(currentImageIndex - 1);
         }
     } else if (key == 'arrowright') {
-
+        if (currentImageIndex < thumbnails.length - 1) {
+            highlightImage(currentImageIndex + 1);
+        }
     } else if (key == 'escape') {
         deactivateLightbox();
     }
 }
 
 function highlightImage(index) {
-    highlight.innerHTML = '';
-    console.log(index);
+    clear(highlight);
+    currentImageIndex = index;
+
+    var link = thumbnails[index]['link'];
+
+    var highlightImg = createImage(index, link, false);
+    highlight.appendChild(highlightImg);
 }
 
 function activateLightbox(index) {
@@ -33,31 +41,40 @@ function activateLightbox(index) {
 
     show(lightbox);
     highlight.style.display = 'initial';
+    lightbox.style.display = 'initial';
 }
 
 function deactivateLightbox() {
     hide(lightbox);
+    lightbox.style.display = 'none';
     highlight.style.display = 'none';
 }
 
-function createImage(index, thumbnailLink) {
-    var newImg = new Image();
+function addThumbnailListeners(index, thumbnail) {
     var noHover = 0.5;
+    thumbnail.style.opacity = noHover;
 
-    newImg.style.opacity = noHover;
-    newImg.src = thumbnailLink;
-
-    newImg.addEventListener('click', function(evt) {
+    thumbnail.addEventListener('click', function(evt) {
         activateLightbox(index);
     });
 
-    newImg.addEventListener('mouseover', function(evt) {
+    thumbnail.addEventListener('mouseover', function(evt) {
         this.style.opacity = 1;
     });
 
-    newImg.addEventListener('mouseleave', function(evt) {
+    thumbnail.addEventListener('mouseleave', function(evt) {
         this.style.opacity = noHover;
     });
+}
+
+function createImage(index, link, isThumb) {
+    var newImg = new Image();
+    newImg.src = link;
+
+    if (isThumb) {
+        addThumbnailListeners(index, newImg);
+        newImg.className += 'thumbnail';
+    }
 
     return newImg;
 }
@@ -65,9 +82,10 @@ function createImage(index, thumbnailLink) {
 function createThumbnails(imageData) {
     for (var i = 0; i < imageData.length; i++) {
         var image = imageData[i];
-        var newTile = createImage(thumbnails.length, image.image.thumbnailLink);
+        var newTile = createImage(thumbnails.length, image.image.thumbnailLink, true);
 
-        thumbnails.push(newTile);
+        thumbnails.push({'thumbnail': newTile,
+                         'link': image.link});
         grid.appendChild(newTile);
     }
 }
@@ -77,6 +95,14 @@ function displayResults(response) {
 
     createThumbnails(imageData);
     setTimeout(function() {
-        fadeIn(grid, 1000);
+        fadeIn(results, 1000);
     }, 1500);
+}
+
+function newQuery() {
+    fadeOut(results, 1000);
+    clear(grid);
+    fadeIn(sentient, 1000);
+    updateSearchContainerWidth();
+    queryUser();
 }

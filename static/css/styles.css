@@ -1,5 +1,6 @@
-img {
+.thumbnail {
     height: 150px;
+    margin: 10px;
     width: 150px;
 }
 
@@ -24,6 +25,13 @@ img {
     top: 30px;
 }
 
+#close-results {
+    cursor: pointer;
+    position: fixed;
+    left: 30px;
+    top: 30px;
+}
+
 #search-input {
     display: inline-block;
     font-family: 'Raleway', sans-serif;
@@ -32,13 +40,12 @@ img {
     width: 100%;
 }
 
-#grid, #lightbox {
+#lightbox, #results {
     opacity: 0;
 }
 
-#highlight {
+#lightbox {
     background-color: #383838;
-    border: 15px transparent;
     display: none;
     height: 100%;
     opacity: 0.8;

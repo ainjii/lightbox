@@ -1,5 +1,5 @@
 var startIndex = 1;
-var maxResults = null;
+var numResults = null;
 var input = document.getElementById('search-input');
 var searchContainer = document.getElementById('search-container');
 
@@ -12,7 +12,7 @@ function processQueryResults(data) {
     var response = JSON.parse(data);
 
     startIndex += 10;
-    maxResults = response.queries.request.totalResults;
+    numResults = response.searchInformation.totalResults;
     displayResults(response);
 }
 
@@ -55,8 +55,8 @@ function submitQuery(query) {
 }
 
 function fetchImages(query) {
-    if (!maxResults || startIndex <= maxResults) {
-        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyB1vzRQkLE3IfC5L7NAHj0PNYDzDt6aKZQ&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&startIndex=';
+    if (!numResults || startIndex <= numResults) {
+        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&startIndex=';
         var url = queryBase + startIndex + '&q=' + query;
         ajax(url, processQueryResults, displayError);
     }
@@ -69,7 +69,7 @@ function registerKey(evt) {
     if (key == 'Enter') {
         evt.preventDefault();
 
-        input.innerHTML = '';
+        clear(input);
         fadeOut(sentient, 1000);
         fadeOut(searchContainer, 1000);
 

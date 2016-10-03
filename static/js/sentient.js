@@ -13,6 +13,8 @@ function updateSentient(char, timeToWait) {
 function sentientSpeak(message, callback) {
     var timeToNext = 1;
 
+    clear(sentient);
+
     for (var i = 0; i < message.length; i++) {
         timeToNext += generateRandomTimeMS();
 
@@ -26,7 +28,7 @@ function sentientSpeak(message, callback) {
 
 function sentientReset(callback) {
     setTimeout(function() {
-        sentient.innerHTML = '';
+        clear(sentient);
         callback();
     }, 2000);
 };

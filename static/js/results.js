@@ -26,14 +26,37 @@ function navigateLightbox(evt) {
     }
 }
 
+function shrinkAndAddImage(evt) {
+    var maxRatio = 0.8;
+    var maxWidth = window.innerWidth * maxRatio;
+    var maxHeight = window.innerHeight * maxRatio;
+
+    var image = evt.target;
+    var widthRatio = image.width / maxWidth;
+    var heightRatio = image.height / maxHeight;
+
+    if (widthRatio > 1 || heightRatio > 1) {
+        if (widthRatio < heightRatio) {
+            image.style.height = maxHeight + 'px';
+            image.style.width = 'auto';
+        } else {
+            image.style.height = 'auto';
+            image.style.width = maxWidth + 'px';
+        }
+    }
+
+    highlight.appendChild(image);
+}
+
 function highlightImage(index) {
     clear(highlight);
     currentImageIndex = index;
 
     var link = thumbnails[index]['link'];
-
     var highlightImg = createImage(index, link, false);
-    highlight.appendChild(highlightImg);
+
+    highlightImg.className += 'absolute-center highlight-image';
+    highlightImg.addEventListener('load', shrinkAndAddImage);
 }
 
 function activateLightbox(index) {

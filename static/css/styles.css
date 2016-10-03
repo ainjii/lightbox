@@ -16,9 +16,9 @@
 }
 
 #close-highlight {
-    background-color: black;
     color: white;
     cursor: pointer;
+    font-size: 36px;
     position: fixed;
     right: 30px;
     top: 30px;

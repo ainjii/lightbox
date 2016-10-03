@@ -4,12 +4,24 @@ function clear(elem) {
     elem.innerHTML = '';
 }
 
+function addToPageFlow(elem) {
+    set(elem, 'display', 'initial');
+}
+
+function removeFromPageFlow(elem) {
+    set(elem, 'display', 'none');
+}
+
 function hide(elem) {
-    elem.style.opacity = 0;
+    set(elem, 'opacity', 0);
+}
+
+function set(elem, style, value) {
+    elem.style[style] = value;
 }
 
 function show(elem) {
-    elem.style.opacity = 1;
+    set(elem, 'opacity', 1);
 }
 
 function flashCursor() {
@@ -29,12 +41,13 @@ function flashCursor() {
 function fadeIn(elem, ms) {
     var deltaPerFrame = intervalLength / ms;
     hide(elem);
-    elem.style.display = 'initial';
+    addToPageFlow(elem);
 
     var interval = setInterval(function() {
-        elem.style.opacity = parseFloat(elem.style.opacity) + deltaPerFrame;
+        var newOpacity = parseFloat(elem.style.opacity) + deltaPerFrame;
+        set(elem, 'opacity', newOpacity);
 
-        if (elem.style.opacity >= 1) {
+        if (newOpacity >= 1) {
             clearInterval(interval);
         }
     }, intervalLength);
@@ -45,11 +58,12 @@ function fadeOut(elem, ms) {
     show(elem);
 
     var interval = setInterval(function() {
-        elem.style.opacity = parseFloat(elem.style.opacity) - deltaPerFrame;
+        var newOpacity = parseFloat(elem.style.opacity) - deltaPerFrame;
+        set(elem, 'opacity', newOpacity);
 
-        if (elem.style.opacity <= 0) {
+        if (newOpacity <= 0) {
             clearInterval(interval);
-            elem.style.display = 'none';
+            removeFromPageFlow(elem);
         }
     }, intervalLength);
 }

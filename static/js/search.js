@@ -79,8 +79,8 @@ function registerKey(evt) {
 
 function updateSearchContainerWidth() {
     var newWidth = (window.innerWidth *.67) + 'px';
-    searchContainer.style.width = newWidth;
-    sentient.style.width = newWidth;
+    set(searchContainer, 'width', newWidth);
+    set(sentient, 'width', newWidth);
 }
 
 function removeSentientCursor() {

@@ -37,11 +37,11 @@ function shrinkAndAddImage(evt) {
 
     if (widthRatio > 1 || heightRatio > 1) {
         if (widthRatio < heightRatio) {
-            image.style.height = maxHeight + 'px';
-            image.style.width = 'auto';
+            set(image, 'height', maxHeight + 'px');
+            set(image, 'width', 'auto');
         } else {
-            image.style.height = 'auto';
-            image.style.width = maxWidth + 'px';
+            set(image, 'height', 'auto');
+            set(image, 'width', maxWidth + 'px');
         }
     }
 
@@ -62,31 +62,31 @@ function highlightImage(index) {
 function activateLightbox(index) {
     highlightImage(index);
 
-    show(lightbox);
-    highlight.style.display = 'initial';
-    lightbox.style.display = 'initial';
+    set(lightbox, 'opacity', 0.8);
+    addToPageFlow(highlight);
+    addToPageFlow(lightbox);
 }
 
 function deactivateLightbox() {
     hide(lightbox);
-    lightbox.style.display = 'none';
-    highlight.style.display = 'none';
+    removeFromPageFlow(lightbox);
+    removeFromPageFlow(highlight);
 }
 
 function addThumbnailListeners(index, thumbnail) {
     var noHover = 0.5;
-    thumbnail.style.opacity = noHover;
+    set(thumbnail, 'opacity', noHover);
 
     thumbnail.addEventListener('click', function(evt) {
         activateLightbox(index);
     });
 
     thumbnail.addEventListener('mouseover', function(evt) {
-        this.style.opacity = 1;
+        set(this, 'opacity', 1);
     });
 
     thumbnail.addEventListener('mouseleave', function(evt) {
-        this.style.opacity = noHover;
+        set(this, 'opacity', noHover);
     });
 }
 

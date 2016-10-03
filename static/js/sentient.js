@@ -1,5 +1,3 @@
-var sentient = document.getElementById('sentient');
-
 function generateRandomTimeMS() {
     return Math.random() * 150 + 25;
 }
@@ -40,12 +38,11 @@ function greetUser() {
 }
 
 function queryUser() {
-    sentientSpeak("What images?", showSearchContainer);
+    sentientSpeak("What images should I look for?", showSearchContainer);
 }
 
 function chideUser() {
-    sentientSpeak("Don't make me blush.", showSearchContainer);
+    sentientSpeak("Don't make me blush.", function() {
+        sentientReset(queryUser);
+    });
 }
-
-//greetUser();
-queryUser();

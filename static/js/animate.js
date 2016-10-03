@@ -1,5 +1,3 @@
-var intervalLength = 10;
-
 function clear(elem) {
     elem.innerHTML = '';
 }
@@ -25,8 +23,6 @@ function show(elem) {
 }
 
 function flashCursor() {
-    var cursor = document.getElementById('cursor');
-
     return setInterval(function() {
 
         if (cursor.style.opacity <= 0) {
@@ -68,4 +64,10 @@ function fadeOut(elem, ms) {
     }, intervalLength);
 }
 
-var blinkID = flashCursor();
+function updateSizes() {
+    var newWidth = parseInt(window.innerWidth *.67) + 'px';
+
+    set(searchContainer, 'width', newWidth);
+    set(sentient, 'width', newWidth);
+    set(grid, 'width', newWidth);
+}

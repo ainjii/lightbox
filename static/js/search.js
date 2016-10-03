@@ -1,8 +1,3 @@
-var startIndex = 1;
-var numResults = null;
-var input = document.getElementById('search-input');
-var searchContainer = document.getElementById('search-container');
-
 // API Request
 function displayError(data) {
     console.log(data);
@@ -36,22 +31,23 @@ function ajax(url, callback, err) {
 
 // Interactivity
 function checkProfanity(data, query) {
-    // console.log(data);
+    var profaneWords = JSON.parse(data);
 
-    // if (data == 'true') {
-        // chideUser();
-    // } else {
+    if (profaneWords.indexOf(query) >= 0) {
+         chideUser();
+     } else {
+        fadeOut(sentient, 1000);
+        fadeOut(searchContainer, 1000);
         fetchImages(query);
-    // }
+     }
 }
 
 function submitQuery(query) {
-    var profanityBase = 'http://www.purgomalum.com/service/xml?text=';
-    var url = profanityBase + query;
+    var url = 'https://gist.githubusercontent.com/ainjii/de6c9a0f6529080216e01a6e62226a8a/raw/3a790a6f16ea08677d33c5de04fb22a69b1050f8/profane.json';
 
-    // ajax(url, function(data) {
-        checkProfanity(null, query);
-    // }, displayError);
+    ajax(url, function(data) {
+        checkProfanity(data, query);
+    }, displayError);
 }
 
 function fetchImages(query) {
@@ -70,35 +66,20 @@ function registerKey(evt) {
         evt.preventDefault();
 
         clear(input);
-        fadeOut(sentient, 1000);
-        fadeOut(searchContainer, 1000);
-
         submitQuery(currentQuery);
     }
 }
 
-function updateSearchContainerWidth() {
-    var newWidth = (window.innerWidth *.67) + 'px';
-    set(searchContainer, 'width', newWidth);
-    set(sentient, 'width', newWidth);
-}
-
 function removeSentientCursor() {
-    var cursor = document.getElementById('cursor');
-
     clearInterval(blinkID);
     hide(cursor);
 }
 
 function showSearchContainer() {
     removeSentientCursor();
-    updateSearchContainerWidth();
+    updateSizes();
 
     fadeIn(searchContainer, 1000);
 
     input.focus();
-
-    window.addEventListener('keydown', registerKey);
 }
-
-window.addEventListener('resize', updateSearchContainerWidth);

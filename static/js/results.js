@@ -1,15 +1,3 @@
-var grid = document.getElementById('grid');
-var lightbox = document.getElementById('lightbox');
-var highlight = document.getElementById('highlight');
-var results = document.getElementById('results');
-var thumbnails = [];
-lightbox.addEventListener('click', deactivateLightbox);
-window.addEventListener('keydown', navigateLightbox);
-document.getElementById('close-highlight').addEventListener('click', deactivateLightbox);
-var currentImageIndex = 0;
-var closeResults = document.getElementById('close-results');
-closeResults.addEventListener('click', newQuery);
-
 function navigateLightbox(evt) {
     var key = evt.key.toLowerCase();
 
@@ -96,7 +84,7 @@ function createImage(index, link, isThumb) {
 
     if (isThumb) {
         addThumbnailListeners(index, newImg);
-        newImg.className += 'thumbnail';
+        newImg.className += 'thumbnail shadow';
     }
 
     return newImg;
@@ -126,6 +114,6 @@ function newQuery() {
     fadeOut(results, 1000);
     clear(grid);
     fadeIn(sentient, 1000);
-    updateSearchContainerWidth();
+    updateSizes();
     queryUser();
 }

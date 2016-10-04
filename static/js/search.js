@@ -36,9 +36,14 @@ function checkProfanity(data) {
     if (profaneWords.indexOf(currentQuery) >= 0) {
          chideUser();
      } else {
-        fadeOut(sentient, 1000);
-        fadeOut(input, 1000);
-        fadeOut(prompt, 1000);
+        fadeOut(sentient);
+        fadeOut(input);
+        fadeOut(prompt);
+
+        setTimeout(function() {
+            removeFromPageFlow(promptBlock);
+        }, standardFadeLength);
+
         fetchImages();
      }
 }
@@ -74,9 +79,9 @@ function registerKey(evt) {
 function showSearchContainer() {
     updateSizes();
 
-    fadeIn(searchContainer, 1000);
-    fadeIn(input, 1000);
-    fadeIn(prompt, 1000);
+    fadeIn(searchContainer);
+    fadeIn(input);
+    fadeIn(prompt);
 
     input.focus();
 }

@@ -82,6 +82,10 @@ body {
     cursor: pointer;
 }
 
+#query-reminder {
+    margin: 15px 0;
+}
+
 #search-input {
     display: inline-block;
     font-family: 'Raleway', sans-serif;

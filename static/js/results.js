@@ -105,6 +105,7 @@ function createThumbnails(imageData) {
 
 function displayResults(response) {
     var imageData = response.items;
+    reminder.innerHTML = "You searched for <b>" + currentQuery + "</b>.";
 
     createThumbnails(imageData);
 
@@ -115,13 +116,14 @@ function displayResults(response) {
     }
 
     setTimeout(function() {
-        fadeIn(results, 1000);
+        fadeIn(results);
     }, 1500);
 }
 
 function newQuery() {
-    fadeOut(results, 1000);
+    fadeOut(results);
     clear(grid);
+    hide(moreResults);
 
     currentQuery = '';
     thumbnails = [];
@@ -130,7 +132,9 @@ function newQuery() {
 
     updateSizes();
 
-    fadeIn(sentient, 1000);
+    addToPageFlow(promptBlock, 'block');
+
+    fadeIn(sentient);
 
     input.blur();
     queryUser();

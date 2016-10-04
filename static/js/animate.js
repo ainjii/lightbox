@@ -2,8 +2,9 @@ function clear(elem) {
     elem.innerHTML = '';
 }
 
-function addToPageFlow(elem) {
-    set(elem, 'display', 'initial');
+function addToPageFlow(elem, display) {
+    var newDisplay = display || 'initial';
+    set(elem, 'display', newDisplay);
 }
 
 function removeFromPageFlow(elem) {
@@ -22,10 +23,9 @@ function show(elem) {
     set(elem, 'opacity', 1);
 }
 
-function fadeIn(elem, ms) {
-    var deltaPerFrame = intervalLength / ms;
+function fadeIn(elem) {
+    var deltaPerFrame = intervalLength / standardFadeLength;
     hide(elem);
-    // addToPageFlow(elem);
 
     var interval = setInterval(function() {
         var newOpacity = parseFloat(elem.style.opacity) + deltaPerFrame;
@@ -37,8 +37,8 @@ function fadeIn(elem, ms) {
     }, intervalLength);
 }
 
-function fadeOut(elem, ms) {
-    var deltaPerFrame = intervalLength / ms;
+function fadeOut(elem) {
+    var deltaPerFrame = intervalLength / standardFadeLength;
     show(elem);
 
     var interval = setInterval(function() {
@@ -47,7 +47,6 @@ function fadeOut(elem, ms) {
 
         if (newOpacity <= 0) {
             clearInterval(interval);
-            // removeFromPageFlow(elem);
         }
     }, intervalLength);
 }

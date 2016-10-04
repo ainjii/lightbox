@@ -22,22 +22,10 @@ function show(elem) {
     set(elem, 'opacity', 1);
 }
 
-function flashCursor() {
-    return setInterval(function() {
-
-        if (cursor.style.opacity <= 0) {
-            fadeIn(cursor, 1000);
-        } else {
-            fadeOut(cursor, 1000);
-        }
-
-    }, 1500);
-}
-
 function fadeIn(elem, ms) {
     var deltaPerFrame = intervalLength / ms;
     hide(elem);
-    addToPageFlow(elem);
+    // addToPageFlow(elem);
 
     var interval = setInterval(function() {
         var newOpacity = parseFloat(elem.style.opacity) + deltaPerFrame;
@@ -59,17 +47,19 @@ function fadeOut(elem, ms) {
 
         if (newOpacity <= 0) {
             clearInterval(interval);
-            removeFromPageFlow(elem);
+            // removeFromPageFlow(elem);
         }
     }, intervalLength);
 }
 
 function updateSizes() {
-    var newWidth = parseInt(window.innerWidth *.67) + 'px';
+    var width = 'width';
+    var windowWidth = window.innerWidth;
+    var newWidth = parseInt(windowWidth *.67) + 'px';
 
-    set(searchContainer, 'width', newWidth);
-    set(input, 'width', newWidth);
-    set(prompt, 'width', newWidth);
-    set(sentient, 'width', newWidth);
-    set(grid, 'width', newWidth);
+    set(searchContainer, width, newWidth);
+    set(input, width, newWidth);
+    set(prompt, width, newWidth);
+    set(sentient, width, newWidth);
+    set(grid, width, newWidth);
 }

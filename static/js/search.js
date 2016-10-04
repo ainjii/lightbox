@@ -67,20 +67,16 @@ function registerKey(evt) {
         evt.preventDefault();
 
         clear(input);
-        submitQuery(currentQuery);
+        submitQuery();
     }
 }
 
-function removeSentientCursor() {
-    clearInterval(blinkID);
-    hide(cursor);
-}
-
 function showSearchContainer() {
-    removeSentientCursor();
     updateSizes();
 
     fadeIn(searchContainer, 1000);
+    fadeIn(input, 1000);
+    fadeIn(prompt, 1000);
 
     input.focus();
 }

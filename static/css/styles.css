@@ -15,10 +15,6 @@ body {
     text-align: center;
 }
 
-.highlight-image {
-    position: fixed;
-}
-
 .shadow {
   display: inline-block;
   vertical-align: middle;
@@ -33,6 +29,7 @@ body {
 }
 
 .thumbnail {
+    cursor: pointer;
     margin: 10px;
     width: 150px;
 }
@@ -54,7 +51,7 @@ body {
     top: 15px;
 }
 
-#cursor, #sentient {
+#sentient {
     display: inline-block;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 24px;
@@ -62,6 +59,10 @@ body {
 
 #grid {
     margin: 0 auto;
+}
+
+#highlight {
+    position: fixed;
 }
 
 #lightbox {

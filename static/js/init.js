@@ -1,5 +1,4 @@
 var sentient = document.getElementById('sentient');
-var cursor = document.getElementById('cursor');
 var searchContainer = document.getElementById('search-container');
 var input = document.getElementById('search-input');
 var prompt = document.getElementById('search-prompt');
@@ -20,7 +19,6 @@ window.addEventListener('keydown', registerKey);
 window.addEventListener('keydown', navigateLightbox);
 
 var intervalLength = 10;
-var blinkID = flashCursor();
 var currentQuery = '';
 var thumbnails = [];
 var currentImageIndex = 0;

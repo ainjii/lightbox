@@ -65,6 +65,19 @@ body {
     position: fixed;
 }
 
+#left, #right {
+    color: #EDEDED;
+    cursor: pointer;
+    font-size: 60px;
+    margin: 0;
+    position: fixed;
+    top: 50%;
+}
+
+#left {
+    left: 30px;
+}
+
 #lightbox {
     background-color: #383838;
     color: #EDEDED;
@@ -76,16 +89,21 @@ body {
     width: 100%;
 }
 
-#lightbox, #results, #search-container {
-    opacity: 0;
-}
-
 #more-results {
     cursor: pointer;
 }
 
 #query-reminder {
     margin: 15px 0;
+    overflow-wrap: break-word;
+}
+
+#results, #search-container {
+    opacity: 0;
+}
+
+#right {
+    right: 30px;
 }
 
 #search-input {

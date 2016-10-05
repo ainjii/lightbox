@@ -14,6 +14,12 @@ function navigateLightbox(evt) {
     }
 }
 
+function nextImage(direction) {
+    var evt = {'key': 'arrow' + direction};
+
+    navigateLightbox(evt);
+}
+
 function shrinkAndAddImage(evt) {
     var maxRatio = 0.8;
     var maxWidth = window.innerWidth * maxRatio;
@@ -33,12 +39,31 @@ function shrinkAndAddImage(evt) {
         }
     }
 
+    loading.innerHTML = '';
     highlight.appendChild(image);
+}
+
+function updateVisibleNavArrows() {
+    if (currentImageIndex <= 0) {
+        removeFromPageFlow(left);
+    } else {
+        addToPageFlow(left);
+    }
+
+    if (currentImageIndex >= thumbnails.length - 1) {
+        removeFromPageFlow(right);
+    } else {
+        addToPageFlow(right);
+    }
+
 }
 
 function highlightImage(index) {
     clear(highlight);
+    loading.innerHTML = 'Loading ...';
     currentImageIndex = index;
+
+    updateVisibleNavArrows();
 
     var link = thumbnails[index]['link'];
     var highlightImg = createImage(index, link, false);
@@ -55,10 +80,12 @@ function activateLightbox(index) {
     addToPageFlow(lightbox);
 }
 
-function deactivateLightbox() {
-    hide(lightbox);
-    removeFromPageFlow(lightbox);
-    removeFromPageFlow(highlight);
+function deactivateLightbox(evt) {
+    if (!(evt.srcElement == left || evt.srcElement == right)) {
+        hide(lightbox);
+        removeFromPageFlow(lightbox);
+        removeFromPageFlow(highlight);
+    }
 }
 
 function addThumbnailListeners(index, thumbnail) {
@@ -78,8 +105,16 @@ function addThumbnailListeners(index, thumbnail) {
     });
 }
 
+function imgError(image) {
+    image.onerror = '';
+    image.src = '/static/image/no_image_available.png';
+}
+
 function createImage(index, link, isThumb) {
     var newImg = new Image();
+    newImg.onerror = function() {
+        imgError(newImg);
+    };
     newImg.src = link;
 
     if (isThumb) {

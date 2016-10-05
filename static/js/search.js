@@ -29,7 +29,7 @@ function processQueryResults(data) {
 
 function fetchImages() {
     if (!numResults || startIndex <= numResults) {
-        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&start=';
+        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyB1vzRQkLE3IfC5L7NAHj0PNYDzDt6aKZQ&cx=011012745277674285058:c5dts1gynry&searchType=image&safe=medium&num=10&alt=json&start=';
         var url = queryBase + startIndex + '&q=' + currentQuery;
         ajax(url, processQueryResults, displayError);
     }
@@ -40,21 +40,16 @@ function checkProfanity(data) {
 
     if (profaneWords.indexOf(currentQuery) >= 0) {
          chideUser();
-     } else {
-        fadeOut(sentient);
-        fadeOut(input);
-        fadeOut(prompt);
-
-        setTimeout(function() {
-            removeFromPageFlow(promptBlock);
-        }, standardFadeLength);
-
-        fetchImages();
+    } else {
+        complimentUser();
      }
 }
 
 function submitQuery() {
     var url = 'https://gist.githubusercontent.com/ainjii/de6c9a0f6529080216e01a6e62226a8a/raw/3a790a6f16ea08677d33c5de04fb22a69b1050f8/profane.json';
+
+    fadeOut(input);
+    fadeOut(prompt);
 
     ajax(url, function(data) {
         checkProfanity(data);

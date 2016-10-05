@@ -32,13 +32,13 @@ function sentientReset(callback) {
 };
 
 function greetUser() {
-    sentientSpeak("Hello.", function() {
+    sentientSpeak('Hello.', function() {
         sentientReset(queryUser);
     });
 }
 
 function queryUser() {
-    sentientSpeak("What images should I look for?", showSearchContainer);
+    sentientSpeak('What images should I look for?', showSearchContainer);
 }
 
 function chideUser() {

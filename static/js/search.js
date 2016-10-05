@@ -1,14 +1,5 @@
-// API Request
 function displayError(data) {
     console.log(data);
-}
-
-function processQueryResults(data) {
-    var response = JSON.parse(data);
-
-    startIndex += 10;
-    numResults = response.searchInformation.totalResults;
-    displayResults(response);
 }
 
 function ajax(url, callback, err) {
@@ -19,17 +10,31 @@ function ajax(url, callback, err) {
             if (this.status == 200) {
                 callback(this.responseText);
             } else {
-                err(new Error("Response returned with error code."));
+                err(new Error('Response returned with error code.'));
             }
         }
     };
 
-    request.open("GET", url, true);
+    request.open('GET', url, true);
     request.send();
 }
 
+function processQueryResults(data) {
+    var response = JSON.parse(data);
 
-// Interactivity
+    startIndex += 10;
+    numResults = response.searchInformation.totalResults;
+    displayResults(response);
+}
+
+function fetchImages() {
+    if (!numResults || startIndex <= numResults) {
+        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&start=';
+        var url = queryBase + startIndex + '&q=' + currentQuery;
+        ajax(url, processQueryResults, displayError);
+    }
+}
+
 function checkProfanity(data) {
     var profaneWords = JSON.parse(data);
 
@@ -54,14 +59,6 @@ function submitQuery() {
     ajax(url, function(data) {
         checkProfanity(data);
     }, displayError);
-}
-
-function fetchImages() {
-    if (!numResults || startIndex <= numResults) {
-        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&num=10&alt=json&start=';
-        var url = queryBase + startIndex + '&q=' + currentQuery;
-        ajax(url, processQueryResults, displayError);
-    }
 }
 
 function registerKey(evt) {

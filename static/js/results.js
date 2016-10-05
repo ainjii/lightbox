@@ -92,20 +92,26 @@ function createImage(index, link, isThumb) {
 
 function createThumbnails(imageData) {
     if (imageData) {
+        var newImageBlock = document.createElement('div');
+        hide(newImageBlock);
+
         for (var i = 0; i < imageData.length; i++) {
             var image = imageData[i];
             var newTile = createImage(thumbnails.length, image.image.thumbnailLink, true);
 
             thumbnails.push({'thumbnail': newTile,
                              'link': image.link});
-            grid.appendChild(newTile);
+            newImageBlock.appendChild(newTile);
         }
+
+        grid.appendChild(newImageBlock);
+        fadeIn(newImageBlock);
     }
 }
 
 function displayResults(response) {
     var imageData = response.items;
-    reminder.innerHTML = "You searched for <b>" + currentQuery + "</b>.";
+    reminder.innerHTML = 'You searched for <b>' + currentQuery + '</b>.';
 
     createThumbnails(imageData);
 
@@ -115,9 +121,11 @@ function displayResults(response) {
         show(moreResults);
     }
 
-    setTimeout(function() {
-        fadeIn(results);
-    }, 1500);
+    if (results.style.opacity <= 0) {
+        setTimeout(function() {
+            fadeIn(results);
+        }, 1500);
+    }
 }
 
 function newQuery() {

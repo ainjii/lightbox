@@ -67,7 +67,9 @@ body {
 
 #lightbox {
     background-color: #383838;
+    color: #EDEDED;
     display: none;
+    font-weight: bold;
     height: 100%;
     opacity: 0.8;
     position: fixed;

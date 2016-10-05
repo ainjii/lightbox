@@ -1,3 +1,5 @@
+'use strict';
+
 function clear(elem) {
     elem.innerHTML = '';
 }
@@ -56,9 +58,8 @@ function updateSizes() {
     var windowWidth = window.innerWidth;
     var newWidth = parseInt(windowWidth *.67) + 'px';
 
-    set(searchContainer, width, newWidth);
+    set(input, 'max-width', newWidth);
     set(input, width, newWidth);
-    set(prompt, width, newWidth);
     set(sentient, width, newWidth);
     set(grid, width, newWidth);
 }

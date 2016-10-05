@@ -1,3 +1,5 @@
+'use strict';
+
 function generateRandomTimeMS() {
     return Math.random() * 125 + 15;
 }

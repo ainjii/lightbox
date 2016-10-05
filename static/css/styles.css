@@ -98,7 +98,7 @@ body {
     overflow-wrap: break-word;
 }
 
-#results, #search-container {
+#results {
     opacity: 0;
 }
 
@@ -107,14 +107,13 @@ body {
 }
 
 #search-input {
+    border-bottom: 1px black solid;
     display: inline-block;
     font-family: 'Raleway', sans-serif;
     font-size: 72px;
+    height: 1.2em;
+    opacity: 0;
     outline: 0px solid transparent;
-    width: 100%;
-}
-
-#search-prompt {
-    background-color: #000000;
-    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
 }

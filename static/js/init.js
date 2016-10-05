@@ -1,10 +1,8 @@
-
+'use strict';
 
 var promptBlock = document.getElementById('prompt-container');
 var sentient = document.getElementById('sentient');
-var searchContainer = document.getElementById('search-container');
 var input = document.getElementById('search-input');
-var prompt = document.getElementById('search-prompt');
 var results = document.getElementById('results');
 var grid = document.getElementById('grid');
 var closeResults = document.getElementById('close-results');

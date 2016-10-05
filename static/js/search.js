@@ -1,3 +1,5 @@
+'use strict';
+
 function displayError(data) {
     console.log(data);
 }
@@ -49,7 +51,6 @@ function submitQuery() {
     var url = 'https://gist.githubusercontent.com/ainjii/de6c9a0f6529080216e01a6e62226a8a/raw/3a790a6f16ea08677d33c5de04fb22a69b1050f8/profane.json';
 
     fadeOut(input);
-    fadeOut(prompt);
 
     ajax(url, function(data) {
         checkProfanity(data);
@@ -71,9 +72,6 @@ function registerKey(evt) {
 function showSearchContainer() {
     updateSizes();
 
-    fadeIn(searchContainer);
     fadeIn(input);
-    fadeIn(prompt);
-
     input.focus();
 }

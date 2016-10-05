@@ -1,3 +1,5 @@
+'use strict';
+
 function navigateLightbox(evt) {
     var key = evt.key.toLowerCase();
 
@@ -10,7 +12,8 @@ function navigateLightbox(evt) {
             highlightImage(currentImageIndex + 1);
         }
     } else if (key == 'escape') {
-        deactivateLightbox();
+        var evt = {'key': 'escape'};
+        deactivateLightbox(evt);
     }
 }
 
@@ -81,7 +84,7 @@ function activateLightbox(index) {
 }
 
 function deactivateLightbox(evt) {
-    if (!(evt.srcElement == left || evt.srcElement == right)) {
+    if (!(evt.target == left || evt.target == right)) {
         hide(lightbox);
         removeFromPageFlow(lightbox);
         removeFromPageFlow(highlight);
@@ -146,7 +149,7 @@ function createThumbnails(imageData) {
 
 function displayResults(response) {
     var imageData = response.items;
-    reminder.innerHTML = 'You searched for <b>' + currentQuery + '</b>.';
+    reminder.innerHTML = 'You searched for <br><b>' + currentQuery + '</b>';
 
     createThumbnails(imageData);
 

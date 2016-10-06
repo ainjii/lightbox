@@ -2,13 +2,12 @@ function clear(elem) {
     elem.innerHTML = '';
 }
 
-function addToPageFlow(elem, display) {
-    var newDisplay = display || 'initial';
-    set(elem, 'display', newDisplay);
+function addToPageFlow(elem) {
+    elem.className = elem.className.replace(new RegExp('hidden', 'gi'), '');
 }
 
 function removeFromPageFlow(elem) {
-    set(elem, 'display', 'none');
+    elem.className += (' hidden');
 }
 
 function hide(elem) {

@@ -73,7 +73,7 @@ function highlightImage(index) {
     updateVisibleNavArrows();
 
     var link = thumbnails[index]['link'];
-    var highlightImg = createImage(index, link, false);
+    var highlightImg = createImage(link);
 
     highlightImg.className += 'absolute-center highlight-image';
     highlightImg.addEventListener('load', shrinkAndAddImage);
@@ -95,8 +95,10 @@ function deactivateLightbox(evt) {
     }
 }
 
-function addThumbnailListeners(index, thumbnail) {
+function addThumbnailListeners(thumbnail) {
     var noHover = 0.5;
+    var index = thumbnails.length;
+
     set(thumbnail, 'opacity', noHover);
 
     thumbnail.addEventListener('click', function(evt) {
@@ -117,35 +119,38 @@ function imgError(image) {
     image.src = '/static/image/no_image_available.png';
 }
 
-function createImage(index, link, isThumb) {
+function createImage(link) {
     var newImg = new Image();
     newImg.onerror = function() {
         imgError(newImg);
     };
     newImg.src = link;
 
-    if (isThumb) {
-	hide(newImg);
-        addThumbnailListeners(index, newImg);
-        newImg.className += 'thumbnail shadow';
-
-        newImg.addEventListener('load', function() {
-            grid.appendChild(newImg);
-            fadeIn(newImg);
-        });
-    }
-
     return newImg;
+}
+
+function thumbify(thumb, link) {
+    hide(thumb);
+    addThumbnailListeners(thumb);
+    thumb.className += 'thumbnail shadow';
+
+    thumb.addEventListener('load', function() {
+        grid.appendChild(thumb);
+        fadeIn(thumb);
+
+        thumbnails.push({'thumbnail': thumb,
+                         'link': link});
+    });
+
+    return thumb;
 }
 
 function createThumbnails(imageData) {
     if (imageData) {
         for (var i = 0; i < imageData.length; i++) {
             var image = imageData[i];
-            var newTile = createImage(thumbnails.length, image.image.thumbnailLink, true);
-
-            thumbnails.push({'thumbnail': newTile,
-                             'link': image.link});
+            var newTile = createImage(image.image.thumbnailLink);
+            newTile = thumbify(newTile, image.link);
         }
     }
 }

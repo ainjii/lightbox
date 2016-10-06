@@ -18,6 +18,10 @@ body {
     text-align: center;
 }
 
+.hidden {
+    display: none;
+}
+
 .shadow {
   display: inline-block;
   vertical-align: middle;
@@ -84,7 +88,6 @@ body {
 #lightbox {
     background-color: #383838;
     color: #EDEDED;
-    display: none;
     font-weight: bold;
     height: 100%;
     opacity: 0.8;

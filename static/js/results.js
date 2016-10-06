@@ -1,24 +1,30 @@
 'use strict';
 
 function navigateLightbox(evt) {
-    var key = evt.key.toLowerCase();
+    var code = evt.keyCode;
 
-    if (key == 'arrowleft') {
+    if (code == 37) {  // left arrow
         if (currentImageIndex > 0) {
             highlightImage(currentImageIndex - 1);
         }
-    } else if (key == 'arrowright') {
+    } else if (code == 39) {  // right arrow
         if (currentImageIndex < thumbnails.length - 1) {
             highlightImage(currentImageIndex + 1);
         }
-    } else if (key == 'escape') {
-        var evt = {'key': 'escape'};
+    } else if (code == 27) {  // escape
         deactivateLightbox(evt);
     }
 }
 
 function nextImage(direction) {
-    var evt = {'key': 'arrow' + direction};
+    if (direction == 'left') {
+        var code = 37;
+    } else if (direction == 'right') {
+        var code = 39;
+    }
+
+    var evt = {'keyCode': code,
+               'target': null};
 
     navigateLightbox(evt);
 }
@@ -121,8 +127,14 @@ function createImage(index, link, isThumb) {
     newImg.src = link;
 
     if (isThumb) {
+	hide(newImg);
         addThumbnailListeners(index, newImg);
         newImg.className += 'thumbnail shadow';
+
+        newImg.addEventListener('load', function() {
+            grid.appendChild(newImg);
+            fadeIn(newImg);
+        });
     }
 
     return newImg;
@@ -130,20 +142,13 @@ function createImage(index, link, isThumb) {
 
 function createThumbnails(imageData) {
     if (imageData) {
-        var newImageBlock = document.createElement('div');
-        hide(newImageBlock);
-
         for (var i = 0; i < imageData.length; i++) {
             var image = imageData[i];
             var newTile = createImage(thumbnails.length, image.image.thumbnailLink, true);
 
             thumbnails.push({'thumbnail': newTile,
                              'link': image.link});
-            newImageBlock.appendChild(newTile);
         }
-
-        grid.appendChild(newImageBlock);
-        fadeIn(newImageBlock);
     }
 }
 

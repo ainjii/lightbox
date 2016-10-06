@@ -58,11 +58,9 @@ function submitQuery() {
 }
 
 function registerKey(evt) {
-    var key = evt.key;
-    currentQuery = input.innerHTML;
-
-    if (key == 'Enter') {
+    if (evt.keyCode == 13) {  // enter
         evt.preventDefault();
+        currentQuery = input.innerHTML;
 
         clear(input);
         submitQuery();

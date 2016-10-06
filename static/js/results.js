@@ -131,10 +131,10 @@ function createImage(link) {
 
 function thumbify(thumb, link) {
     hide(thumb);
-    addThumbnailListeners(thumb);
     thumb.className += 'thumbnail shadow';
 
     thumb.addEventListener('load', function() {
+        addThumbnailListeners(thumb);
         grid.appendChild(thumb);
         fadeIn(thumb);
 
@@ -168,6 +168,7 @@ function displayResults(response) {
     }
 
     if (results.style.opacity <= 0.1) {
+        addToPageFlow(results);
         setTimeout(function() {
             fadeIn(results);
         }, 1500);
@@ -176,6 +177,11 @@ function displayResults(response) {
 
 function newQuery() {
     fadeOut(results);
+
+    setTimeout(function() {
+        removeFromPageFlow(results);
+    }, standardFadeLength);
+
     clear(grid);
     hide(moreResults);
 

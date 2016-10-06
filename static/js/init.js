@@ -36,5 +36,4 @@ var startIndex = 1;
 var numResults = null;
 
 updateSizes();
-//greetUser();
-queryUser();
+greetUser();

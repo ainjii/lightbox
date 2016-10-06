@@ -169,6 +169,7 @@ function displayResults(response) {
 
     if (results.style.opacity <= 0.1) {
         addToPageFlow(results);
+        addToPageFlow(closeResults);
         setTimeout(function() {
             fadeIn(results);
         }, 1500);
@@ -180,6 +181,7 @@ function newQuery() {
 
     setTimeout(function() {
         removeFromPageFlow(results);
+        removeFromPageFlow(closeResults);
     }, standardFadeLength);
 
     clear(grid);
@@ -193,9 +195,7 @@ function newQuery() {
     updateSizes();
 
     addToPageFlow(promptBlock, 'block');
-
     fadeIn(sentient);
 
-    input.blur();
     queryUser();
 }

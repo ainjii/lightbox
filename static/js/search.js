@@ -60,6 +60,7 @@ function registerKey(evt) {
         evt.preventDefault();
         currentQuery = input.innerHTML;
 
+        input.blur();
         clear(input);
         submitQuery();
     }

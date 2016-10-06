@@ -29,7 +29,7 @@ function processQueryResults(data) {
 
 function fetchImages() {
     if (!numResults || startIndex <= numResults) {
-        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyB1vzRQkLE3IfC5L7NAHj0PNYDzDt6aKZQ&cx=011012745277674285058:c5dts1gynry&searchType=image&safe=medium&num=10&alt=json&start=';
+        var queryBase = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCR05hGw42gSK8dOzF3HPgM6GamHUG6zDk&cx=011012745277674285058:c5dts1gynry&searchType=image&safe=medium&num=10&alt=json&start=';
         var url = queryBase + startIndex + '&q=' + currentQuery;
         ajax(url, processQueryResults, displayError);
     }

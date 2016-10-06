@@ -164,7 +164,7 @@ function displayResults(response) {
         show(moreResults);
     }
 
-    if (results.style.opacity <= 0) {
+    if (results.style.opacity <= 0.1) {
         setTimeout(function() {
             fadeIn(results);
         }, 1500);

@@ -9,3 +9,6 @@ lightbox is a photo viewer which makes no use of third-party libraries. Function
 4. Install dependencies (`pip install -r requirements.txt`)
 5. Run server (`python server.py`)
 6. Visit localhost:5000 in a browser!
+
+## Preview
+You can see a functioning copy at https://lightbox.angieroscioli.com.

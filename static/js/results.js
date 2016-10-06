@@ -88,11 +88,9 @@ function activateLightbox(index) {
 }
 
 function deactivateLightbox(evt) {
-    if (!(evt.target == left || evt.target == right)) {
-        hide(lightbox);
-        removeFromPageFlow(lightbox);
-        removeFromPageFlow(highlight);
-    }
+    hide(lightbox);
+    removeFromPageFlow(lightbox);
+    removeFromPageFlow(highlight);
 }
 
 function addThumbnailListeners(thumbnail) {

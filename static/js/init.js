@@ -17,10 +17,12 @@ moreResults.addEventListener('click', fetchImages);
 closeResults.addEventListener('click', newQuery);
 left.addEventListener('click', function() {
     nextImage('left');
+    return false;
 });
 lightbox.addEventListener('click', deactivateLightbox);
 right.addEventListener('click', function() {
     nextImage('right');
+    return false;
 });
 closeHighlight.addEventListener('click', deactivateLightbox);
 window.addEventListener('resize', updateSizes);

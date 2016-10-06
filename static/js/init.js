@@ -1,5 +1,3 @@
-'use strict';
-
 var promptBlock = document.getElementById('prompt-container');
 var sentient = document.getElementById('sentient');
 var input = document.getElementById('search-input');

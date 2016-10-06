@@ -1,5 +1,3 @@
-'use strict';
-
 function displayError(data) {
     console.log(data);
 }

@@ -1,5 +1,3 @@
-'use strict';
-
 function navigateLightbox(evt) {
     var code = evt.keyCode;
 
